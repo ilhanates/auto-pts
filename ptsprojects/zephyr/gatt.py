@@ -74,6 +74,11 @@ def update_service_gatt_sr_gas_bv_01_c():
     __add_unique_char_to_service()
 
 
+def pair_after_connect():
+    btp.gap_wait_for_connection()
+    btp.gap_pair()
+
+
 def verify_gatt_sr_gpa_bv_04_c(description):
     """Verification function for GATT/SR/GPA/BV-04-C
 
@@ -522,7 +527,8 @@ def test_cases_server(ptses):
         # TODO rewrite GATT/SR/GAS/BV-01-C
         ZTestCase("GATT", "GATT/SR/GAS/BV-01-C",
                   cmds=pre_conditions +
-                  [TestFunc(update_service_gatt_sr_gas_bv_01_c, post_wid=96)],
+                  [TestFunc(update_service_gatt_sr_gas_bv_01_c, post_wid=96),
+                   TestFunc(pair_after_connect, post_wid=1],
                   generic_wid_hdl=gatt_wid_hdl),
         ZTestCase("GATT", "GATT/SR/GAS/BV-02-C",
                   cmds=pre_conditions_1 +
@@ -546,7 +552,8 @@ def test_cases_server(ptses):
                   generic_wid_hdl=gatt_wid_hdl),
         ZTestCase("GATT", "GATT/SR/GAS/BV-07-C",
                   cmds=pre_conditions_1 +
-                  [TestFunc(btp.gap_set_io_cap, IOCap.display_only)],
+                  [TestFunc(btp.gap_set_io_cap, IOCap.display_only),
+                   TestFunc(pair_after_connect, post_wid=1],
                   generic_wid_hdl=gatt_wid_hdl),
         ZTestCase("GATT", "GATT/SR/GAS/BV-08-C",
                   cmds=pre_conditions_1 + init_server_2,
