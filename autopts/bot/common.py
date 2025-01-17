@@ -66,7 +66,7 @@ class BotCliParser(CliParser):
         super().__init__(**kwargs)
 
         self.add_argument('--nb', dest='no_build', action='store_true',
-                          help='Skip build and flash in bot mode.', default=False)
+                          help='Skip build and flash in bot mode.', default=True)
 
         self.add_argument('--simple', action='store_true',
                           help='Skip build and flash in bot mode.', default=False)
